@@ -21,7 +21,6 @@ Wavelet hash: Allow possibility of different wavelet functions
 
 """
 
-
 class Hashing:
     """
     Find duplicates using hashing algorithms and/or generate hashes given a single image or a directory of images.
@@ -121,7 +120,7 @@ class Hashing:
 
         return self._hash_func(image_pp) if isinstance(image_pp, np.ndarray) else None
 
-    def encode_images(self, image_dir=None):
+    def encode_images(self, image_dir=None, rglob=False):
         """
         Generate hashes for all images in a given directory of images.
 
@@ -144,9 +143,15 @@ class Hashing:
 
         image_dir = Path(image_dir)
 
-        files = [
-            i.absolute() for i in image_dir.glob('*') if not i.name.startswith('.')
-        ]  # ignore hidden files
+        if rglob:
+            files = [
+                i.absolute() for i in image_dir.rglob('*') if not i.name.startswith('.') and i.is_file()
+            ]  # ignore hidden files
+        else:
+            files = [
+                i.absolute() for i in image_dir.glob('*') if not i.name.startswith('.') and i.is_file()
+            ]  # ignore hidden files
+        
 
         logger.info(f'Start: Calculating hashes...')
 

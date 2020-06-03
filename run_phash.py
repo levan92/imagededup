@@ -14,7 +14,7 @@ from imagededup.methods import PHash
 parser = argparse.ArgumentParser()
 parser.add_argument('directory', help='Path to root directory of images')
 parser.add_argument('--thresh', help='distance threshold (hamming distance) int between 0 and 64. Default: 10', default=10, type=int)
-parser.add_argument('--get-clusters', help='if flagged, will copy images over to <input name>_Dups_thresh{thresh} output folder in their computed clusters', action='store_true')
+parser.add_argument('--get-clusters', help='if flagged, will copy images over to <input name>_Dups_thresh{thresh} output folder in their computed clusters subdirectories', action='store_true')
 parser.add_argument('--dedup', help='if flagged, will copy images over to <input name>_deduped with images randomly sampled ', action='store_true')
 args = parser.parse_args()
 

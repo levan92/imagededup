@@ -1,4 +1,4 @@
-# Image Deduplicator (imagededup)
+# (fork of) Image Deduplicator (imagededup)
 
 ## To run
 `python3 run_phash.py -h` to see options

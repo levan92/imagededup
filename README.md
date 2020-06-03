@@ -1,5 +1,27 @@
 # Image Deduplicator (imagededup)
 
+## To run
+`python3 run_phash.py -h` to see options
+```
+positional arguments:
+  directory        Path to root directory of images
+
+optional arguments:
+  -h, --help       show this help message and exit
+  --thresh THRESH  distance threshold (hamming distance) int between 0 and 64.
+                   Default: 10
+  --get-clusters   if flagged, will copy images over to <input
+                   name>_Dups_thresh{thresh} output folder in their computed
+                   clusters subdirectories
+  --dedup          if flagged, will copy images over to <input name>_deduped
+                   with images randomly sampled
+```
+## What's new
+- added clustering logic
+- added rglob option for encoding directory of images
+
+## Documentation from original [repo](https://github.com/idealo/imagededup)
+
 [![Build Status](https://dev.azure.com/axelspringerai/Public/_apis/build/status/idealo.imagededup?branchName=master)](https://dev.azure.com/axelspringerai/Public/_build/latest?definitionId=1&branchName=master)
 [![Build Status](https://travis-ci.org/idealo/imagededup.svg?branch=master)](https://travis-ci.org/idealo/imagededup)
 [![Docs](https://img.shields.io/badge/docs-online-brightgreen)](https://idealo.github.io/imagededup/)

@@ -23,6 +23,13 @@ optional arguments:
 ## What's new
 - added clustering logic
 - added rglob option for encoding directory of images
+- added Docker support
+
+## Wait, what's this actually
+
+A fork from the original imagededup. This makes use perceptual hashing (phash), essentially it's a hash that will vary according to how an image look. Similar looking images will have hashes that are close to each other (usually calculated in terms of Hamming distance). 
+
+It might sound similar to how a CNN works to embed features from an image, but phash works purely on the appearance portion and excludes the semantic naunces of an image that a trained CNN might encode in their features as well. Therefore, using phash to de-duplicate your dataset will makes more sense. 
 
 ## Documentation from original [repo](https://github.com/idealo/imagededup)
 

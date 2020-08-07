@@ -1,5 +1,9 @@
 # (fork of) Image Deduplicator (imagededup)
 
+## Installation
+- As original repo recommends below OR
+- Build the `Dockerfile` or `docker pull levan92/imagededup`
+
 ## To run
 `python3 run_phash.py -h` to see options
 ```

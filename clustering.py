@@ -21,12 +21,20 @@ def clustering(distance_map):
             min_cl_idx = None
             for cl_idx, cluster in enumerate(clusters):
                 for candidate in cluster:
-                    in_match = [ tup for tup in closest_matches if tup[0]== candidate ]
-                    if len(in_match) > 0:
-                        dist = in_match[0][1]
-                        if dist < min_dist:
-                            min_dist = dist
+
+                    for tup in closest_matches:
+                        if tup[0] == candidate and tup[1] < min_dist:
+                            min_dist = tup[1]
                             min_cl_idx = cl_idx
+                            break
+                            
+                    # in_match = [ tup for tup in closest_matches if tup[0]== candidate ]
+                    # if len(in_match) > 0:
+                    #     dist = in_match[0][1]
+                    #     if dist < min_dist:
+                    #         min_dist = dist
+                    #         min_cl_idx = cl_idx
+
             if min_cl_idx is None:
                 # start new cluster
                 clusters.append([filename])

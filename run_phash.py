@@ -1,7 +1,5 @@
 import time
-import math
 import argparse
-from tqdm import tqdm
 from pathlib import Path
 from shutil import copy
 
@@ -16,7 +14,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument('directory', help='Path to root directory of images')
 parser.add_argument('--thresh', help='distance threshold (hamming distance) int between 0 and 64. Default: 10', default=10, type=int)
 parser.add_argument('--get-clusters', help='if flagged, will copy images over to <input name>_Dups_thresh{thresh} output folder in their computed clusters subdirectories', action='store_true')
-parser.add_argument('--dedup', help='if flagged, will copy images over to <input name>_deduped with images randomly sampled ', action='store_true')
+parser.add_argument('--dedup', help='if flagged, will copy images over to <input name>_deduped with images randomly sampled', action='store_true')
+parser.add_argument('--cluster-num', help='max num of samples from each cluster (if dedup is flagged). Default: 3', default=3, type=int)
 cache_group = parser.add_mutually_exclusive_group()
 cache_group.add_argument('--save', help='save encoding map (phash of images) as pkl', action='store_true')
 cache_group.add_argument('--load', help='load encoding map (phash of images) from pkl', type=str)
@@ -70,15 +69,16 @@ if args.get_clusters:
         cluster_dir.mkdir(exist_ok=True, parents=True)
         for fn in cluster:
             src_path = root_dir / fn
-            copy(src_path, cluster_dir) 
+            copy(src_path, cluster_dir)
 
 if args.dedup:
     import random
 
     out_dir = root_dir.parent / '{}_deduped'.format(root_dir.stem)
     out_dir.mkdir(exist_ok=True, parents=True)
-    print('Generating deduplicated images at', )
-    sampling = int(input('Pls give max num of samples you want from each clusters: '))
+    print('Generating deduplicated images at', out_dir)
+    sampling = args.cluster_num
+    print('Max num of samples from each cluster:', sampling)
 
     sampled_count = 0
     for cluster in clusters:
@@ -89,6 +89,6 @@ if args.dedup:
         
         for fn in sampled:
             src_path = root_dir / fn
-            copy(src_path, out_dir) 
+            copy(src_path, out_dir)
             sampled_count += 1
     print('Sampled total count: ', sampled_count)
